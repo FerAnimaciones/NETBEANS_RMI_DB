@@ -24,9 +24,9 @@ public class PantallaCliente extends javax.swing.JFrame {
      */
     public PantallaCliente() {
         initComponents();
-         this.setLocationRelativeTo(null);
-         this.setResizable(false);
-         conexioninicial();
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        conexioninicial();
     }
 
     /**
@@ -127,29 +127,28 @@ public class PantallaCliente extends javax.swing.JFrame {
                 new PantallaCliente().setVisible(true);
             }
         });
-      
+
     }
-    private void conexioninicial(){
-           Registry registry = null;
+    private void conexioninicial() {
+        Registry registry = null;
         try {
             registry = LocateRegistry.getRegistry();
         } catch (RemoteException ex) {
             Logger.getLogger(PantallaCliente.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "El servidor no esta conectado 1!",
-           "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El servidor no esta conectado 1!",
+                    "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-         try {
-        
+        try {
             ConexionRemota testRemote;
-               testRemote = (ConexionRemota) registry.lookup("BaseDatos");
+            testRemote = (ConexionRemota) registry.lookup("BaseDatos");
             jTable1.setModel(testRemote.consultar());
         } catch (RemoteException ex) {
-        JOptionPane.showMessageDialog(null, "Error Seguridad!",
-  "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El servidor no esta conectado",
+                    "ERROR", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(PantallaCliente.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NotBoundException ex) {
-                JOptionPane.showMessageDialog(null, "El servidor no esta conectado !",
-  "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El servidor no esta conectado !",
+                    "ERROR", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(PantallaCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

@@ -18,7 +18,7 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-*/
+ */
 import java.rmi.AlreadyBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -32,6 +32,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author mario
@@ -43,9 +44,9 @@ public class ServidorRMI extends javax.swing.JFrame {
      */
     public ServidorRMI() {
         initComponents();
-         this.setLocationRelativeTo(null);
-         this.setResizable(false);
-         this.inicio();
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.inicio();
 
     }
 
@@ -127,14 +128,14 @@ public class ServidorRMI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        VentanaUsuarios a= new VentanaUsuarios();
+        VentanaUsuarios a = new VentanaUsuarios();
         a.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) throws  RemoteException, AlreadyBoundException  {
+    public static void main(String args[]) throws RemoteException, AlreadyBoundException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -159,56 +160,55 @@ public class ServidorRMI extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-         java.awt.EventQueue.invokeLater(new Runnable() {
+        java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 new ServidorRMI().setVisible(true);
-             }  
+            }
         });
-         Remote stub = UnicastRemoteObject.exportObject(new ConexionRemota() {
+        Remote stub = UnicastRemoteObject.exportObject(new ConexionRemota() {
             @Override
             public void insertardatos(String[] datos) throws RemoteException {
-                    System.out.println("InsertarDatos");
+                System.out.println("InsertarDatos");
             }
-
             @Override
             public DefaultTableModel consultar() throws RemoteException {
-                  try {
-            System.out.print("Conexion");
-            DBconexion  con= new DBconexion();
-            Connection conn=con.getConnection();
-            Statement st= conn.createStatement();
-            ResultSet rs= st.executeQuery("select * from usuarios;");
-            DefaultTableModel modelo = new DefaultTableModel();
-            modelo.addColumn("ID");
-            modelo.addColumn("NOMBRE");
-            modelo.addColumn("CONTRASEÑA");
-            modelo.addColumn("TIPO");
-            while (rs.next()){
-            Object [] fila = new Object[4];
-             for (int i=0;i<4;i++){
-                  fila[i] = rs.getObject(i+1);
-             }
-              modelo.addRow(fila); 
+                try {
+                    System.out.print("Conexion");
+                    DBconexion con = new DBconexion();
+                    Connection conn = con.getConnection();
+                    Statement st = conn.createStatement();
+                    ResultSet rs = st.executeQuery("select * from usuarios;");
+                    DefaultTableModel modelo = new DefaultTableModel();
+                    modelo.addColumn("ID");
+                    modelo.addColumn("NOMBRE");
+                    modelo.addColumn("CONTRASEÑA");
+                    modelo.addColumn("TIPO");
+                    while (rs.next()) {
+                        Object[] fila = new Object[4];
+                        for (int i = 0; i < 4; i++) {
+                            fila[i] = rs.getObject(i + 1);
+                        }
+                        modelo.addRow(fila);
+                    }
+                    return modelo;
+                } catch (SQLException ex) {
+                    Logger.getLogger(VentanaUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+                    return null;
+                }
             }
-              return modelo;
-             } catch (SQLException ex) {
-            Logger.getLogger(VentanaUsuarios.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-            }    
-            }
-         }, 0);
+        }, 0);
         Registry registry = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
         registry.bind("BaseDatos", stub);
     }
-    public void inicio(){
+    public void inicio() {
         try {
-            InetAddress IP=InetAddress.getLocalHost();
-            txtip.setText(""+IP.getHostAddress());
+            InetAddress IP = InetAddress.getLocalHost();
+            txtip.setText("" + IP.getHostAddress());
         } catch (UnknownHostException ex) {
             Logger.getLogger(ServidorRMI.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
