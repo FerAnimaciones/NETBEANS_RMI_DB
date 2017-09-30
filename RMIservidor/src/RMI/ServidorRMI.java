@@ -24,6 +24,8 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.RemoteServer;
+import java.rmi.server.ServerNotActiveException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -170,6 +172,16 @@ public class ServidorRMI extends javax.swing.JFrame {
             @Override
             public void insertardatos(String[] datos) throws RemoteException {
                 System.out.println("InsertarDatos");
+                 try {
+                    System.out.print("Conexion");
+                    DBconexion con = new DBconexion();
+                    Connection conn = con.getConnection();
+                    Statement st = conn.createStatement();
+                    st.executeUpdate("INSER INTO USUARIOS values (0,'"+datos[0]+"','"+datos[1]+"','"+datos[2]+"');");
+                } catch (SQLException ex) {
+                    Logger.getLogger(VentanaUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+
+                }
             }
             @Override
             public DefaultTableModel consultar() throws RemoteException {
@@ -200,6 +212,13 @@ public class ServidorRMI extends javax.swing.JFrame {
         }, 0);
         Registry registry = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
         registry.bind("BaseDatos", stub);
+    }
+    public void conexionesServer(){
+        try {
+            RemoteServer.getClientHost();
+                    } catch (ServerNotActiveException ex) {
+            Logger.getLogger(ServidorRMI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     public void inicio() {
         try {

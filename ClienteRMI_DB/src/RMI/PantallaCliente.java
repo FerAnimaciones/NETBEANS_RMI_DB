@@ -92,6 +92,8 @@ public class PantallaCliente extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+         InsertarUsuario user= new InsertarUsuario();
+         user.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
