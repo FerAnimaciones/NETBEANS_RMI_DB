@@ -169,16 +169,16 @@ public class ServidorRMI extends javax.swing.JFrame {
             }
         });
         Remote stub = UnicastRemoteObject.exportObject(new ConexionRemota() {
-            public DBconexion con;
+            
             @Override
             public void insertardatos(String[] datos) throws RemoteException {
                 System.out.println("InsertarDatos");
                  try {
                     System.out.print("Conexion");
-                    con = new DBconexion();
+                    DBconexion con = new DBconexion();
                     Connection conn = con.getConnection();
                     Statement st = conn.createStatement();
-                    st.executeUpdate("INSER INTO USUARIOS values (0,'"+datos[0]+"','"+datos[1]+"','"+datos[2]+"');");
+                    st.executeUpdate("INSERT INTO USUARIOS values (0,'"+datos[0]+"','"+datos[1]+"','"+datos[2]+"');");
                 } catch (SQLException ex) {
                     Logger.getLogger(VentanaUsuarios.class.getName()).log(Level.SEVERE, null, ex);
 
@@ -188,7 +188,7 @@ public class ServidorRMI extends javax.swing.JFrame {
             public DefaultTableModel consultar() throws RemoteException {
                 try {
                     System.out.print("Conexion");
-                    con = new DBconexion();
+                    DBconexion con = new DBconexion();
                     Connection conn = con.getConnection();
                     Statement st = conn.createStatement();
                     ResultSet rs = st.executeQuery("select * from usuarios;");
@@ -207,6 +207,7 @@ public class ServidorRMI extends javax.swing.JFrame {
                     return modelo;
                 } catch (SQLException ex) {
                     Logger.getLogger(VentanaUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("Error Servidor Base de datos");
                     return null;
                 }
             }
