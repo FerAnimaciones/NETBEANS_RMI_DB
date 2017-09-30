@@ -49,7 +49,7 @@ public class PantallaCliente extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CLIENTE DB");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         jButton2.setText("REFRESCAR TABLA");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -74,7 +74,7 @@ public class PantallaCliente extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
