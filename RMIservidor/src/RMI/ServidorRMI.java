@@ -169,12 +169,13 @@ public class ServidorRMI extends javax.swing.JFrame {
             }
         });
         Remote stub = UnicastRemoteObject.exportObject(new ConexionRemota() {
+            public DBconexion con;
             @Override
             public void insertardatos(String[] datos) throws RemoteException {
                 System.out.println("InsertarDatos");
                  try {
                     System.out.print("Conexion");
-                    DBconexion con = new DBconexion();
+                    con = new DBconexion();
                     Connection conn = con.getConnection();
                     Statement st = conn.createStatement();
                     st.executeUpdate("INSER INTO USUARIOS values (0,'"+datos[0]+"','"+datos[1]+"','"+datos[2]+"');");
@@ -187,7 +188,7 @@ public class ServidorRMI extends javax.swing.JFrame {
             public DefaultTableModel consultar() throws RemoteException {
                 try {
                     System.out.print("Conexion");
-                    DBconexion con = new DBconexion();
+                    con = new DBconexion();
                     Connection conn = con.getConnection();
                     Statement st = conn.createStatement();
                     ResultSet rs = st.executeQuery("select * from usuarios;");
@@ -210,7 +211,8 @@ public class ServidorRMI extends javax.swing.JFrame {
                 }
             }
         }, 0);
-        Registry registry = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
+        Registry registry = LocateRegistry.createRegistry(9999);
+        //Registry registry = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
         registry.bind("BaseDatos", stub);
     }
     public void conexionesServer(){
@@ -229,6 +231,7 @@ public class ServidorRMI extends javax.swing.JFrame {
         }
 
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;

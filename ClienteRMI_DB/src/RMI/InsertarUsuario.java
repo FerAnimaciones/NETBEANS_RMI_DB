@@ -158,7 +158,7 @@ public class InsertarUsuario extends javax.swing.JFrame {
         Registry registry = null;
         String datos[] = new String[3]; 
         try {
-            registry = LocateRegistry.getRegistry();
+            registry = LocateRegistry.getRegistry(9999);
         } catch (RemoteException ex) {
             Logger.getLogger(PantallaCliente.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "El servidor no esta conectado 1!",
